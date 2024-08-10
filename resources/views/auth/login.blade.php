@@ -1,18 +1,8 @@
 <x-layout>
-    <h1 class="title">Register a new account</h1>
+    <h1 class="title">Login account</h1>
     <div class="mx-auto max-w-screen-sm card">
-        <form action="{{ route('register') }}" method="post">
+        <form action="{{ route('login') }}" method="post">
             @csrf
-            {{-- Username --}}
-            <div class="mb-4">
-                <label for="username">Username</label>
-                <input type="text" name="username" id="username" class="input @error('username') ring-red-500 @enderror" value="{{ old('username') }}">
-                @error('username')
-                    <p class="error">
-                        {{ $message }}
-                    </p>
-                @enderror
-            </div>
             {{-- Email --}}
             <div class="mb-4">
                 <label for="email">Email</label>
@@ -33,15 +23,20 @@
                     </p>
                 @enderror
             </div>
-            {{-- Confirm Password --}}
+            {{-- Remember Me --}}
             <div class="mb-4">
-                <label for="password_confirmation">Confirm Password</label>
-                <input type="password" name="password_confirmation" id="password_confirmation" class="input @error('password') ring-red-500 @enderror">
-
+                <input type="checkbox" name="remember" id="remember">
+                <label for="remember">Remember Me</label>
             </div>
+
+            @error('failed')
+            <p class="error py-4">
+                {{ $message }}
+            </p>
+            @enderror
             {{-- Submit --}}
             <div class="mb-4">
-                <button type="submit" class="btn">Register</button>
+                <button type="submit" class="btn">Login</button>
             </div>
         </form>
     </div>
