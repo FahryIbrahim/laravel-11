@@ -7,9 +7,9 @@
 
         {{-- Session Messages --}}
         @if (session('success'))
-        <div class="mb-2">
             <x-flashMsg msg="{{session('success')}}"/>
-        </div>
+        @elseif(session('delete'))
+            <x-flashMsg msg="{{session('delete')}}" bg="bg-red-500"/>
         @endif
 
         <form action="{{route('posts.store')}}" method="post">
@@ -40,7 +40,14 @@
     <div class="grid grid-cols-2 gap-6">
 
         @foreach ($posts as $post)
-        <x-postCard :post="$post"/>
+        <x-postCard :post="$post">
+            {{-- Delete Post --}}
+            <form action="{{route('posts.destroy', $post)}}" method="post">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="bg-red-500 text-white px-2 py-1 text-xs rounded-md">Delete</button>
+            </form>
+        </x-postCard>
         @endforeach
     </div>
 
