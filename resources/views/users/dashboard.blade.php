@@ -34,4 +34,17 @@
             <button type="submit" class="btn">Create Post</button>
         </form>
     </div>
+
+    {{-- User Posts --}}
+    <h2 class="font-bold mb-4">Your Posts</h2>
+    <div class="grid grid-cols-2 gap-6">
+
+        @foreach ($posts as $post)
+        <x-postCard :post="$post"/>
+        @endforeach
+    </div>
+
+    <div class="">
+        {{$posts->links()}}
+    </div>
 </x-layout>
