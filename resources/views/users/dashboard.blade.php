@@ -1,5 +1,5 @@
 <x-layout>
-    <h1 class="title">Hello {{auth()->user()->username}}</h1>
+    <h1 class="title">Welcome {{auth()->user()->username}} you have {{$posts->total()}} posts</h1>
     {{-- Create Post Form --}}
     <div class="card mb-4">
         <h2 class="font-bold mb-4">Create a new post</h2>
