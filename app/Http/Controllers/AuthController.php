@@ -23,7 +23,7 @@ class AuthController extends Controller
         // Login
         Auth::login($user);
         // Redirect
-        return view('posts.index');
+        return redirect()->route('dashboard');
     }
 
     // Login User
