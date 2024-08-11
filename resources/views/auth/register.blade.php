@@ -1,52 +1,56 @@
 <x-layout>
     <h1 class="title">Register a new account</h1>
+
     <div class="max-w-screen-sm mx-auto card">
         <form action="{{ route('register') }}" method="post" x-data="formSubmit" @submit.prevent="submit">
             @csrf
+
             {{-- Username --}}
             <div class="mb-4">
                 <label for="username">Username</label>
-                <input type="text" name="username" id="username" class="input @error('username') ring-red-500 @enderror" value="{{ old('username') }}">
+                <input type="text" name="username" value="{{ old('username') }}"
+                    class="input  @error('username') ring-red-500 @enderror">
+
                 @error('username')
-                    <p class="error">
-                        {{ $message }}
-                    </p>
+                    <p class="error">{{ $message }}</p>
                 @enderror
             </div>
+
             {{-- Email --}}
             <div class="mb-4">
                 <label for="email">Email</label>
-                <input type="email" name="email" id="email" class="input @error('email') ring-red-500 @enderror" value="{{ old('email') }}">
+                <input type="text" name="email" value="{{ old('email') }}"
+                    class="input @error('email') ring-red-500 @enderror">
+
                 @error('email')
-                    <p class="error">
-                        {{ $message }}
-                    </p>
+                    <p class="error">{{ $message }}</p>
                 @enderror
             </div>
+
             {{-- Password --}}
             <div class="mb-4">
                 <label for="password">Password</label>
-                <input type="password" name="password" id="password" class="input @error('password') ring-red-500 @enderror">
+                <input type="password" name="password" class="input @error('password') ring-red-500 @enderror">
+
                 @error('password')
-                    <p class="error">
-                        {{ $message }}
-                    </p>
+                    <p class="error">{{ $message }}</p>
                 @enderror
             </div>
+
             {{-- Confirm Password --}}
-            <div class="mb-4">
+            <div class="mb-8">
                 <label for="password_confirmation">Confirm Password</label>
-                <input type="password" name="password_confirmation" id="password_confirmation" class="input @error('password') ring-red-500 @enderror">
+                <input type="password" name="password_confirmation"
+                    class="input @error('password') ring-red-500 @enderror">
             </div>
-            {{-- Subscribe --}}
+
             <div class="mb-4">
                 <input type="checkbox" name="subscribe" id="subscribe">
-                <label for="subscribe"> Subscribe to our newsletter</label>
+                <label for="subscribe">Subscribe to our newsletter</label>
             </div>
-            {{-- Submit --}}
-            <div class="mb-4">
-                <button x-ref="btn" type="submit" class="btn">Register</button>
-            </div>
+
+            {{-- Submit Button --}}
+            <button x-ref="btn" class="btn">Register</button>
         </form>
     </div>
 </x-layout>
