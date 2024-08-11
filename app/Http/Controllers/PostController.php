@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserSubscribed;
 use App\Http\Requests\UpdatePostRequest;
 use App\Mail\WelcomeMail;
 use App\Models\Post;
