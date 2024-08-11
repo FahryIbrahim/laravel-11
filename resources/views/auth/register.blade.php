@@ -1,7 +1,7 @@
 <x-layout>
     <h1 class="title">Register a new account</h1>
-    <div class="mx-auto max-w-screen-sm card">
-        <form action="{{ route('register') }}" method="post">
+    <div class="max-w-screen-sm mx-auto card">
+        <form action="{{ route('register') }}" method="post" x-data="formSubmit" @submit.prevent="submit">
             @csrf
             {{-- Username --}}
             <div class="mb-4">
@@ -41,7 +41,7 @@
             </div>
             {{-- Submit --}}
             <div class="mb-4">
-                <button type="submit" class="btn">Register</button>
+                <button x-ref="btn" type="submit" class="btn">Register</button>
             </div>
         </form>
     </div>
