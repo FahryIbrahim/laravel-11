@@ -3,10 +3,10 @@
     <div class="card">
 
         {{-- Update Post Form --}}
-        <h2 class="font-bold mb-4">Update your post</h2>
+        <h2 class="mb-4 font-bold">Update your post</h2>
         {{-- Session Messages --}}
 
-        <form action="{{route('posts.update', $post)}}" method="post">
+        <form action="{{route('posts.update', $post)}}" method="post" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             {{-- Post Title --}}
@@ -22,6 +22,21 @@
                 <label for="body">Post Content</label>
                 <textarea name="body" rows="5" id="body" class="input @error('body') ring-red-500 @enderror">{{ $post->body }}</textarea>
                 @error('body')
+                <p class="error"> {{$message}} </p>
+                @enderror
+            </div>
+            {{-- Current Cover --}}
+            @if ($post->image)
+            <div class="object-cover w-1/4 h-64 mb-4 overflow-hidden rounded-md">
+                <label for="">Current cover photo</label>
+                <img src="{{asset('storage/'.$post->image)}}" alt="" srcset="">
+            </div>
+            @endif
+            {{-- Post Image --}}
+            <div class="mb-4">
+                <label for="image">Cover Photo</label>
+                <input type="file" name="image" id="image">
+                @error('image')
                 <p class="error"> {{$message}} </p>
                 @enderror
             </div>

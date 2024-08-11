@@ -3,7 +3,7 @@
 
 <div class="card">
     {{-- Cover photo --}}
-    <div>
+    <div class="object-cover w-full mb-4 overflow-hidden rounded-md h-52">
         @if ($post->image)
 
         <img src="{{asset('storage/'.$post->image)}}" alt="" srcset="">

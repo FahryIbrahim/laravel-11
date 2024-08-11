@@ -88,14 +88,29 @@ class PostController extends Controller implements HasMiddleware
     {
         // Authorizing the action
         Gate::authorize('modify', $post);
+
         // Validate
         $data = $request->validate([
             'title' => ['required', 'max:255'],
             'body' => ['required'],
+            'image' => ['image', 'nullable', 'max:1000', 'mimes:webp,png,jpg,jpeg'],
         ]);
 
+        // Store image if exists
+        $path = $post->image ?? null;
+        if($request->hasFile('image')){
+            if($post->image){
+                Storage::disk('public')->delete($post->image);
+            }
+            $path = Storage::disk('public')->put('posts_images', $request->image);
+        }
+
         // Update the post
-        $post->update($data);
+        $post->update([
+            'title' => $request->title,
+            'body' => $request->body,
+            'image' => $path
+        ]);
 
         // Redirect to the dashboard
         return redirect()->route('dashboard')->with('success', 'Your post was updated');
@@ -106,6 +121,12 @@ class PostController extends Controller implements HasMiddleware
      */
     public function destroy(Post $post)
     {
+        // Authorizing the action
+        Gate::authorize('modify', $post);
+        // Delete post image if exists
+        if ($post->image) {
+            Storage::disk('public')->delete($post->image);
+        }
         // Delete the post
         $post->delete();
 
