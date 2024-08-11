@@ -1,8 +1,8 @@
 <x-layout>
     <h1 class="title">Welcome {{auth()->user()->username}} you have {{$posts->total()}} posts</h1>
     {{-- Create Post Form --}}
-    <div class="card mb-4">
-        <h2 class="font-bold mb-4">Create a new post</h2>
+    <div class="mb-4 card">
+        <h2 class="mb-4 font-bold">Create a new post</h2>
 
 
         {{-- Session Messages --}}
@@ -36,20 +36,20 @@
     </div>
 
     {{-- User Posts --}}
-    <h2 class="font-bold mb-4">Your Posts</h2>
+    <h2 class="mb-4 font-bold">Your Posts</h2>
     <div class="grid grid-cols-2 gap-6">
 
         @foreach ($posts as $post)
         <x-postCard :post="$post">
 
             {{-- Update Post --}}
-            <a href="{{route('posts.edit', $post)}}" class="bg-green-500 text-white px-2 py-1 text-xs rounded-md">Edit</a>
+            <a href="{{route('posts.edit', $post)}}" class="px-2 py-1 text-xs text-white bg-green-500 rounded-md">Update</a>
 
             {{-- Delete Post --}}
             <form action="{{route('posts.destroy', $post)}}" method="post">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="bg-red-500 text-white px-2 py-1 text-xs rounded-md">Delete</button>
+                <button type="submit" class="px-2 py-1 text-xs text-white bg-red-500 rounded-md">Delete</button>
             </form>
         </x-postCard>
         @endforeach

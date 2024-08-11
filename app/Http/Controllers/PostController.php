@@ -5,10 +5,19 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
-class PostController extends Controller
+class PostController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('auth', except: ['index', 'show'])
+        ];
+    }
     /**
      * Display a listing of the resource.
      */
@@ -56,6 +65,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        Gate::authorize('modify', $post);
+
         return view('posts.edit', ['post' => $post]);
     }
 
@@ -64,6 +75,8 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        // Authorizing the action
+        Gate::authorize('modify', $post);
         // Validate
         $data = $request->validate([
             'title' => ['required', 'max:255'],
